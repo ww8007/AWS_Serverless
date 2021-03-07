@@ -130,3 +130,19 @@ Material Design Lite
 - https://getmdl.io/started/index.html
 
 * wget https://raw.githubusercontent.com/google/material-design-lite/mdl-1.x/LICENSE
+
+### 객체 스토리지
+
+버킷 안에 객체들이 무제한으로 적재가 가능
+버킷은 -> 100개의 임계치 존재
+user별로 버킷을 생성하는 것은 자제
+
+aws s3api list-objects --bucket fastcampus2022
+
+echo 'test' > test.txt
+
+aws s3api put-object --bucket fastcampus2022 --key dir1/test.txt --body ./test.txt
+
+무한히 확장해 나가면서 같은 deps 안에 있다고 보면됨
+
+(mypage)[http://fastcampus2022.s3-website.ap-northeast-2.amazonaws.com/]
