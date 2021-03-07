@@ -63,3 +63,70 @@ Fass 에 중점을 두어서 설명
   스케쥴러, IOT, 배치, 예측불가, 작은, 빠른, 간단, API
   사용패턴이 일정하지 않은 써드파티
   적은 비용으로 많은 트래픽을 감당가능
+
+### Amazon
+
+리테일 사업 -> 판매자 지원 사업 -> 클라우드 컴퓨팅
+
+- Region
+  여러 가용 영역들의 집합체
+  대륙간 네트워크 통신을 통해 연결
+  물리적으로 분리가 되어 있음
+  이중네트워크-고가용성, 이중화
+  이중화 : 가용 영역 최소 2개 -> 하나의 가용영역의 문제가 생길경우를 대비하여서 하나를 다른 가용영역에 복사
+- Availiability Zones
+- Data Center
+
+- Edge
+  전세계 사람들에게 원하는 데이터를 제공하는 CDN 서비스
+
+* 캐시서버를 이용해서 데이터를 복사하여 전달하고 변경사항이 있을 경우 빠르게 변경 가능
+
+### 어플리케이션 및 아키택쳐 소개
+
+컴퍼런스 참가 시스템
+
+참가신청 화면, 신청내역 화면, 신청결과 화면
+
+API Gateway
+Proxy
+clout Front
+CDN
+S3
+html,css 정적 호스팅
+Dynamo DB
+전송할 데이터 적재
+SNS
+sns 통해 lambda에게 이벤트 호스팅 역할
+
+- 아키텍쳐 -Hosting
+- 참가증 로직 Lambda에서 처리하면 시간지연 -> 비동기적으로 SNS(Async) 통해서 작성
+
+### 실습환경 준비
+
+1. docker run -it amazonlinux bash
+1. yum update -y
+1. yum install python3 -y
+1. pip3 install virtualenv
+1. yum install which
+1. which python3
+1. mkdir venv
+1. virtualenv -p /usr/bin/python3 py37
+1. source py37/bin/activate
+1. pip3 install awscli
+1. aws configure
+
+https://console.aws.amazon.com/iam/home?region=us-east-2#/home
+
+- 확인 방법
+  cat ~/.aws/credentials
+- 권한 프로파일 부여
+  aws configure --profile s3
+
+### 프런트 앤드 화면 개발
+
+Material Design Lite
+
+- https://getmdl.io/started/index.html
+
+* wget https://raw.githubusercontent.com/google/material-design-lite/mdl-1.x/LICENSE
