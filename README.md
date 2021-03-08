@@ -244,3 +244,82 @@ acid -> 고립성 rdms no sql -> 트렌잭션을 지원
 - 태그 - 특정 요소에 대해서 모니터링이 가능
 - 구독 필터 정책 - 특정 요소가 받을 수 있는 데이터를 분리 가능
 - 이메일 - cloudwatch -> 특정 트래픽 이상의 데이터가 발생 시 알림이 올 것 이고 서비스에 대한 모니터링 알람을 구축할 수 있음
+
+### IAM
+
+identitiry and Access Management
+
+Lambda에 맞는 처리
+
+1. Get data (dynamo DB에 대한 권한)
+
+### 정리 시간
+
+S3: frontend index.html 포함 frontend 리소스 적재 호스팅
+Cloudfont: 매핑
+DynamoDB : 테이블 설정
+SNS : Lamda, Lambda 연결
+cloud watch : 데이터 권한 얻음
+
+### AWS lamda
+
+람다 : 서버에 대한 걱정 없이 실행 할 수 있음
+
+1. get (history 부분)
+   함수 러닝 타임 900초 메모리 할당 중요
+   동시성 예약 : 계정당 1000개 이기 때문에 잘 배분해서 적용
+
+- boto3 table
+
+```python
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('내가 사용할 table 이름')
+```
+
+- dynamodb table
+
+- query
+  kyecontionExpression
+
+환경 변수를 사용해서 conference를 환경변수로 사용가능
+cloud watch 기능이 사용된다면 로그내용을 볼 수 있다.
+
+2. post
+
+데이터를 넣고 알람을 주는것을 행동
+
+람다는 버저닝을 가능함 -> 실서버와 구버전의 아마존 네임이 달라지게 된다.
+
+- 별칭 부가 -> 두개의 서버에 대해서 전배포가 꺼려질 경우 기존 버전과 새로운버전의 50대 50으로 나누어서 버저닝이 가능하다.
+
+3. Make image
+
+sns를 기반으로 key를 가져와서 s3에 전달
+
+- 이미지를 만들기 위해서는
+  from PIL import Image, ImageDraw, ImageFont,
+  import qrcode
+
+하지만 이는 존재 하지 않음
+
+- 계층
+
+먼저 PIP zip 파일로 생성
+
+- t 로 경로 설정이 가능함
+  pip install pillow qrcode -t python/
+
+- 파이 케시 삭제
+  rm -rf **pycache**
+- zip 생성
+  zip -r output.zip ./python/
+
+* 단순히 zip파일을 계층으로 올리는 것 만으로는 해결 할 수 없음
+* 종속성이라는 단점
+  아마존 linux2 <-> os에 따라서 output이 다름
+  아마존 linux에서 pip install을 다 해줘야함
+
+1. ec2 인스턴스 install
+1. docker 특정 디렉토리 볼륨 마운트
