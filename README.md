@@ -146,3 +146,48 @@ aws s3api put-object --bucket fastcampus2022 --key dir1/test.txt --body ./test.t
 무한히 확장해 나가면서 같은 deps 안에 있다고 보면됨
 
 (mypage)[http://fastcampus2022.s3-website.ap-northeast-2.amazonaws.com/]
+
+Cloud Front 에서 요청을 모두 처리하는 것이 아닌 하나만 처리하도록 하는 것도 중요함
+
+### S3
+
+version이 가장 중요한 -> 우발적인 삭제가 우려 되는 경우가 있음
+
+index.html이 삭제가 되어있다고 가정 -> 버저닝을
+
+서버 엑세스 로깅 -> 트래픽에 대한 요청 처리
+객체 수준 로깅 -> 객체가 변경 사항에 대해서 로깅을 처리하는데 이에따른 요금도 더 많이 부과가 될 수 있음
+
+- 이벤트 기능 -> put post 삭제 마커 이벤트 트리거 해서 서비스에서 해당 요청에 대한 처리를 할 수 있음
+
+* 배치 작업 -> 무수히 많은 데이터를 쌓은것을 캐시 -> 메타 데이터, 데이터 일괄적으로 넣는 경우 사용(사용 빈도가 많지 않음)
+
+### CloudFront
+
+세계 각지의 region에 배포 하는 개념
+
+- Origin Domain Name : 캐싱할 대상
+  cf와 s3가 여기서 생성 된다고 보면됨
+- Origin Path : 경로를 설정하면 여기가 origin Path로 동작
+- Restrict Bucket Access : Cloud Front(cf)를 통해서만 접근이 가능하도록 설정
+- Grant Read Permissions on Bucket : 모든 유저에게 열어준다는 말이 없음, WKO라는 권한을 가진 유저들에게 모든 권한을 주겠다고 설정이 가능하다.
+- cdn을 통해서만 접속이 가능하도록 설정하는 것이 좋음 -> 비용 발생이 가능함
+- Viewer Protocol Policy : httys only는 위험
+- Field-level Encryption Config : 암호화
+- Cached HTTP Methods : 이에 한해서만 캐시가 됨
+- Cache Based on Selected Request Headers : 특정 헤더를 통해서 캐싱을 구분지음 -> user_id : 캐싱이 private 유저에게 열리게 됨 none이 일반적
+- Object Caching : 캐시 컨트롤 origin 메타 데이터 값을 사용한다는 의미
+- Minimum TTL 0초
+- Maximum TTL 1년
+- 캐시 유지되는 기간 : Cache-Control max-age
+- Forward Cookies : ?
+- Query String Forwarding and Caching : 캐싱이 되고 나서 index.html 수정 : 캐시 메타 데이터 없기 때문에 default TTL 따라감, cf에는 복제된 index.html을 따라감 (구분자가 달라진다고 생각)
+- Smooth Streaming : 온디맨드 방식 비디오 스트리밍
+- Restrict Viewer Access
+  (Use Signed URLs or
+  Signed Cookies) : (https://console.aws.amazon.com/iam/home?region=ap-northeast-2#/security_credentials) 서명된 url 사용하느냐 안하는냐
+- Compress Objects Automatically : cf 복제할 때 zip 파일 형태로 적재한다는 의미 : 압축이 될 경우 원래 크기의 1/4 되는 경우도 존재하기 때문에 좋음 : Accept Encoding : gzip 으로 설정이 되어야만 요청이 처리됨
+- Lambda Function Associations : 4가지의 람다 함수 추가가능
+  4가지의 response에 대하여 이미지 비용을 줄일 수 있음
+- Alternate Domain Names(CNAMEs) : 도메인 기능
+- Default Root Object : s3의 default root 와 동일
