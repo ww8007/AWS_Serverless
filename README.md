@@ -191,3 +191,51 @@ index.html이 삭제가 되어있다고 가정 -> 버저닝을
   4가지의 response에 대하여 이미지 비용을 줄일 수 있음
 - Alternate Domain Names(CNAMEs) : 도메인 기능
 - Default Root Object : s3의 default root 와 동일
+- Invalidations : 캐싱이 퍼지 되는 것
+-
+-
+
+### Dynamo DB
+
+sql과의 비교
+
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=1q2w3e4r -d mysql:latest
+docker ps | grep mysql
+docker exec -it mysql mysql -u root -p
+create database test;
+
+- 확장에 대한 고민이 없음
+
+acid -> 고립성 rdms no sql -> 트렌잭션을 지원
+러닝 커브가 높을 수도 있음
+
+온디맨드 방식을 사용할 수 있음 -> 뭔지 찾아볼 필요가 있음
+
+- 유닛당 쓸 수 있는 읽고 쓰는 크기가 정해져 있음
+  - 최종적 일관된 읽기
+    8kb : 가용영역 3개 복제가 되는 도중에 get을 해올 수 있음 : 최종적
+  - 강력한 일관된 읽기
+    4kb : 가용영역 3개에 모두 복제가 되었을 때 get을 해올 수 있음
+- 예약 읽기 용량
+  예약 용량을 구매해서 사용하는 것이 더 싼 경우가 있음
+- 기본 키는 하나 여야 하기 때문에 문제가 되는 경우가 있음
+- rdms 인덱스를 물려주는 것이 좋음
+- 테이블의 항목들은 StringSet, NumberSet, Binary Set 등 배열을 가질 수 있음
+- Map Json과 동일
+- s3와 동일하게 테이블에 담을 수 있는 것은 무제한
+- deps의 경우 32 deps까지 허용
+- 문자열 크기 400kb 제한
+- 속성 이름 64kb 제한
+- 백업 - 백업 설정가능 (설정 값에 대한 백업 가능)
+- TTL 어느 스키마 값을 기준으로 시간을 넘어가면 삭제 가능(캐시 느낌과 동일)
+
+### SNS
+
+서버리스 어플리케이션을 위한 완전관리
+
+서버리스 - 무상태적인 상태를 유지 - SNS를 통해서 stateful 하게 변해 간다.
+팬아웃을 하는데 사용
+
+구독자 - SNS -소비자
+
+구독자가 요청을 보내면 이에 따라서 이벤트 들이 일어나게 됨
