@@ -347,3 +347,22 @@ private : 특정 vpc
 
 - 통합 요청을 이용해서 처리
   - 매핑 템플릿
+  -
+
+### put
+
+put의 경우 매핑 템플릿을 해주지 않아도 된다.
+
+- 테스트 json 파일
+
+```json
+{
+  "user_id": "dong",
+  "type": "server",
+  "user_name": "홍길동",
+  "phone_number": "01012341234",
+  "company_name": "test"
+}
+```
+
+- 모델을 설정해서 원하는 데이터를 무조건 받도록 설정이 가능하다.
