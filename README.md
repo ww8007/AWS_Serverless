@@ -106,8 +106,8 @@ sns 통해 lambda에게 이벤트 호스팅 역할
 
 1. docker run -it amazonlinux bash
 1. yum update -y
-1. yum install python3 -y
-1. pip3 install virtualenv
+1. yum install user python3 -y
+1. pip3 install --user virtualenv
 1. yum install which
 1. which python3
 1. mkdir venv
@@ -323,3 +323,27 @@ sns를 기반으로 key를 가져와서 s3에 전달
 
 1. ec2 인스턴스 install
 1. docker 특정 디렉토리 볼륨 마운트
+
+- pip3 install pillow qrcode -t ~/python/
+
+* rm -rf **pycache**
+* zip -r ./output.zip ./python
+
+* 람다가 간단하면서 좋지만 패키지가 설치가 되어야 하는 경우 불편함을 조금 초래함
+
+* docker를 이용해서 간단하게 해결도 가능하다. github에 내장
+
+### API GATEWAY
+
+지역 : 서울 지역에만
+private : 특정 vpc
+최적화된 엣지 : cloud front에만 배포
+
+### gateway
+
+/conference/
+
+람다 이벤트가 들어오는 것을 json으로 변경
+
+- 통합 요청을 이용해서 처리
+  - 매핑 템플릿
