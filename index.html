@@ -63,7 +63,7 @@
                                     <h2 class="mdl-card__title-text"></h2>
                                 </div>
                                 <div class="mdl-card__supporting-text">
-                                    <form action="#">
+                                    <form id="submit_form" action="#">
                                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                             <select class="mdl-textfield__input" type="text" id="type">
                           <option value="Serverless Web Project">
@@ -136,6 +136,7 @@
                   ></div>
                   <div class="mdl-card__actions mdl-card--border">
                     <button
+                      id="submit_btn"
                       class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                     >
                       Submit
@@ -158,9 +159,7 @@
           <div class="page-content">
             <!-- Your content goes here -->
             <dialog class="mdl-dialog">
-              <div id="showBox" class="mdl-dialog__content">
-                <img src="http://placehold.it/400x250?text=image" alt="" />
-              </div>
+              <div id="showBox" class="mdl-dialog__content"></div>
               <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
                 <button type="button" class="mdl-button print">Print</button>
                 <button type="button" class="mdl-button close">Close</button>
@@ -169,40 +168,7 @@
             <div class="mdl-grid">
               <div class="mdl-layout-spacer"></div>
               <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
-                <ul class="demo-list-three mdl-list">
-                  <li class="mdl-list__item mdl-list__item--three-line">
-                    <span class="mdl-list__item-primary-content">
-                      <i class="material-icons mdl-list__item-avatar">person</i>
-                      <span>Name</span>
-                      <span class="mdl-list__item-text-body">
-                        From Company Name, Serverless Web project
-                      </span>
-                    </span>
-                    <span class="mdl-list__item-secondary-content">
-                      <a
-                        class="show-modal mdl-list__item-secondary-action"
-                        href="#"
-                        ><i class="material-icons">print</i></a
-                      >
-                    </span>
-                  </li>
-                  <li class="mdl-list__item mdl-list__item--three-line">
-                    <span class="mdl-list__item-primary-content">
-                      <i class="material-icons mdl-list__item-avatar">person</i>
-                      <span>Name</span>
-                      <span class="mdl-list__item-text-body">
-                        From Company Name, Serverless Web project
-                      </span>
-                    </span>
-                    <span class="mdl-list__item-secondary-content">
-                      <a
-                        class="show-modal mdl-list__item-secondary-action"
-                        href="#"
-                        ><i class="material-icons">print</i></a
-                      >
-                    </span>
-                  </li>
-                </ul>
+                <ul id="history" class="demo-list-three mdl-list"></ul>
               </div>
               <div class="mdl-layout-spacer"></div>
             </div>
